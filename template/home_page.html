@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Schedule Home</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+	<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+	
+	<script>
+	var api_key = "AIzaSyCANlK33-HffAe8uibWb_orAV-B6RCREYI";
+	var client_ID = "161532758504-c35rf3lla1sbmi4pdbvelfkfgsgtv097.apps.googleusercontent.com";
+	var scopes = 'https://www.googleapis.com/auth/calendar';
+	function handleClientLoad() {
+        gapi.client.setApiKey(apiKey);
+        window.setTimeout(checkAuth, 1);
+    }
+    function checkAuth() {
+    	gapi.auth.authorize({ client_id: clientId, scope: scopes, immediate: true }, handleAuthResult);
+     }
+    function makeApiCall(){
+		gapi.client.load('calendar', 'v3', function () { // load the calendar api (version 3)
+        var request = gapi.client.calendar.events.insert
+        ({
+            'calendarId': 'aaupadhy@usc.edu', 
+// calendar ID which id of Google Calendar where you are creating events. this can be copied from your Google Calendar user view.
+
+            "resource": resource 	// above resource will be passed here
+        });                
+	})}
+	
+	</script>
+	<style>
+	html,body{
+		margin: 0;
+		padding: 0;
+		background-color: #4AECB6;
+
+	}
+	.topBar{
+		height: 35%;
+		width: 100%;
+		margin:none;
+	}
+	.calendar{
+		margin-top:20px;
+		height:900px;
+		width:100%;
+	}
+	#btnCreateEvents{
+		margin-left:300px;
+		margin-top:10px;
+	}
+	#integrateButton{
+		margin-top:10px;
+	}
+	#calendarView{
+		float:right;
+		width: 100%;
+		height: 100%;
+	}
+	#taskAdd{
+		float:left;
+		width: 37%;
+		height: 60%;
+		position: absolute;
+		margin-left:20px;
+		padding-right: 30px;
+	}
+	#taskAdd:after{
+		content: "";
+		clear: both;
+		display: table;
+	}
+	.calendarView:after{
+		content: "";
+		clear: both;
+		display: table;
+	}
+	#taskForm{
+		visibility: hidden;
+		padding-right: 20px;
+	}
+	#start_date{
+		width: 220px;
+		float: left;
+	}
+	#start_time{
+		width: 140px;
+	}
+	#end_date{
+		width: 220px;
+		float: left;
+	}
+	#end_time{
+		width: 140px;
+	}
+	#max_hours{
+		width:60px;
+	}
+
+
+
+
+	</style>
+</head>
+<body>
+	<div class="container-fluid">
+		<nav class="navbar navbar-dark bg-dark">
+			 <a class="navbar-brand" href="#">SmartSchedule</a>
+			  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+			    <span class="navbar-toggler-icon"></span>
+			  </button>
+			  <div class="collapse navbar-collapse" id="navbarNavDropdown">
+			    <ul class="navbar-nav">
+			      <li class="nav-item active">
+			        <a class="nav-link color" href="#">Home <span class="sr-only">(current)</span></a>
+			      </li>
+			      <li class="nav-item">
+			        <a class="nav-link" href="team.html">Team</a>
+			      </li>
+			      <li class="nav-item">
+			        <a class="nav-link" href="#">Other</a>
+			      </li>
+			    </ul>
+			  </div>
+		</nav>
+	</div> 
+	<div class="row justify-content-center">
+	    <div class="col-4">
+			<button id="btnCreateEvents" class="btn btn-info" onclick="addTask()">Add Task</button>
+	    </div>
+	    <div class="col-4">
+			<button id="integrateButton" class= "btn btn-info"> Integrate Google Calendar </button>
+	    </div>
+  	</div><!-- .container -->
+
+	<div class="container-fluid calendar">
+		<div id="taskAdd">
+			<form id="taskForm">
+				<h1 style="text-align: center;"> Add Assignment </h1>
+				<div class="form-group row">
+					<label for="task_name" class="col-sm-3 col-form-label text-sm-right">Assignment Name:</label>
+					<div class="col-sm-9">
+						<input type="text" class="form-control" id="task_name" name="task_name">
+					</div>
+				</div> 
+				<div class="form-group row">
+					<label for="start_date" class="col-sm-3 col-form-label text-sm-right">Start Date:</label>
+					<div class="col-sm-9">
+						<input type="date" class="form-control" id="start_date" name="start_date">
+						<input type="time" class="form-control" id="start_time" name="start_time">
+
+					</div>
+				</div> 
+				<div class="form-group row">
+					<label for="end_date" class="col-sm-3 col-form-label text-sm-right">End Date:</label>
+					<div class="col-sm-9">
+						<input type="date" class="form-control" id="end_date" name="end_date">
+						<input type="time" class="form-control" id="end_time" name="end_time">
+
+					</div>
+				</div> 
+				<div class="form-group row">
+					<label for="max_hours" class="col-sm-3 col-form-label text-sm-right">Estimated Time for Completion:</label>
+					<div class="col-sm-9">
+						<input type="number" class="form-control" min="1" max="30"  id="max_hours" name="max_hours">
+					</div>
+				</div> 
+
+
+			</form>
+<button onclick="add_task();">Submit</button>
+<div id="response_div"></div>
+		</div>
+		<div id="calendarView">
+                    <iframe id="ifmCalendar" 
+                    src="https://www.google.com/calendar/embed?
+                    height=550&amp;wkst=1&amp;bgcolor=%23FFFFFF&
+                    amp;src=aaupadhy@usc.edu&
+                    amp;color=%238C500B&amp;ctz=America"
+
+                        style="border-width: 0" width="100%"  height="600px" 
+
+                       frameborder="0" scrolling="no">
+                    </iframe>
+        </div>
+	</div>
+	<script type="text/javascript">
+		function addTask(){
+			let x = document.getElementById("taskForm");
+			let y = document.getElementById("calendarView");
+			console.log(x);
+			if(x.style.visibility == "hidden"){
+				y.style.width = "60%";
+				x.style.visibility = "visible";
+				x.style.backgroundColor = "#33DAE8";
+			}
+			else{
+				x.style.visibility = "hidden"; 
+				y.style.width = "100%";
+			}
+		}
+	</script> <!-- .container -->
+<script src="static/js/main.js"></script>
+</body>
+</html>
